@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { FaMinusCircle, FaPlusCircle, FaTrash } from "react-icons/fa";
 import { addToCart, deleteFromCart } from "../actions/CartAction";
@@ -7,9 +7,15 @@ import Checkout from "../components/Checkout";
 
 const CartScreen = () => {
   const cartState = useSelector((state) => state.cartReducer);
+  const userState = useSelector((state) => state.loginUserReducer);
+  const { currentUser } = userState;
   const cartItems = cartState.cartItems;
   const dispatch = useDispatch();
   const subTotal = cartItems.reduce((x, item) => x + item.price, 0);
+
+  const login = () => {
+    window.location.href = "/login";
+  };
 
   return (
     <>
@@ -75,7 +81,13 @@ const CartScreen = () => {
             <h1>Payment</h1>
             <h4>Sub Total</h4>
             <h4> ₹ {subTotal}</h4>
-            <Checkout subTotal={subTotal} />
+            {currentUser ? (
+              <Checkout subTotal={subTotal} />
+            ) : (
+              <Button onClick={login}>
+                You have Login to Place the Order{" "}
+              </Button>
+            )}
           </Col>
         </Row>
       </Container>

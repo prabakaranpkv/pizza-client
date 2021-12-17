@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,11 +18,19 @@ const Checkout = ({ subTotal }) => {
     console.log(token);
   };
 
+  useEffect(() => {
+    if (success) {
+      localStorage.removeItem("cartItems");
+      window.location.href = "/orders";
+    }
+  }, [success]);
+
   return (
     <>
       {loading && <Loader />}
       {error && <Error error="Something went Wrong" />}
       {success && <Success success="order placed successfully" />}
+
       <StripeCheckout
         amount={subTotal * 100}
         shippingAddress
