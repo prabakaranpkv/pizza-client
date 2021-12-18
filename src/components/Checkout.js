@@ -21,7 +21,6 @@ const Checkout = ({ subTotal }) => {
   useEffect(() => {
     if (success) {
       localStorage.removeItem("cartItems");
-      window.location.href = "/orders";
     }
   }, [success]);
 
