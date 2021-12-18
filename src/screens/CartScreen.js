@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { FaMinusCircle, FaPlusCircle, FaTrash } from "react-icons/fa";
@@ -13,8 +14,9 @@ const CartScreen = () => {
   const dispatch = useDispatch();
   const subTotal = cartItems.reduce((x, item) => x + item.price, 0);
 
+  const history = useHistory();
   const login = () => {
-    window.location.href = "/login";
+    history.push("/login");
   };
 
   return (
