@@ -29,7 +29,7 @@ const HomeScreen = () => {
           <Row>
             <Filters />
             {pizzas.map((pizza) => (
-              <Col md={4} key={pizza.name}>
+              <Col md={6} key={pizza.name}>
                 <Pizza pizza={pizza} />
               </Col>
             ))}
